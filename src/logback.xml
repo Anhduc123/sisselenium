@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+	<!--
+		ファイル出力。
+
+		毎日 0 時 0 分に新しいファイルに切り替える。
+		書き込み中のファイルの名前にも日付を付ける。
+		書き込みが終了したファイルは gz 圧縮する。
+		500 日以上古いファイルは削除する。
+	-->
+	<appender name="FILE"
+			class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<append>true</append>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>logs/%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+			<maxHistory>500</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%date{ISO8601} %level [%thread] %logger - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+
+	<!--
+		コンソール出力。
+	-->
+	<appender name="CONSOLE"
+			class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} %-5level %logger{0} - %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<!--
+		レベル指定。
+	-->
+	<root level="DEBUG">
+		<appender-ref ref="FILE" />
+		<appender-ref ref="CONSOLE" />
+	</root>
+
+<!--
+	<logger name="openjpa.jdbc.SQL" level="TRACE"/>
+-->
+
+</configuration>
