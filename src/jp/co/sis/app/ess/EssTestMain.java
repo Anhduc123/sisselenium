@@ -19,7 +19,7 @@ import jp.co.sis.selenium.appcommon.AbstractTestEss;
 
 /**
  * 画面打鍵テスト用メインクラス
- * @author SIS
+ * @author @duc
  * @version 1.0.0
  *
  */
